@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user');
 const constants = require('../lib/constants');
-const { sendWelcomeEmail } = require('../services/mail');
 const { generateUniqeUsername } = require('../services/utils');
 
 const register = async (req, res) => {
@@ -43,13 +42,6 @@ const register = async (req, res) => {
       username: newUser.username,
       phoneNumber: newUser.phoneNumber,
     };
-
-    await sendWelcomeEmail(
-      newUser.firstName,
-      newUser.lastName,
-      newUser.username,
-      newUser.email
-    );
 
     return res.status(201).json(shownInfo);
   } catch (error) {

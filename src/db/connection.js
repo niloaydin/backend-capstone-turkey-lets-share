@@ -5,7 +5,7 @@ const urlDev = process.env.DB_DEV_URL;
 const urlTest = process.env.DB_TEST_URL;
 const urlProd = process.env.DB_PROD_URL;
 
-let url = urlDev;
+let url = "mongodb+srv://nilayaydn97:19971997@cluster0.weakapl.mongodb.net/";
 if (process.env.NODE_ENV === 'test') url = urlTest;
 if (process.env.NODE_ENV === 'production') url = urlProd;
 

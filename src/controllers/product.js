@@ -5,10 +5,7 @@ const objectId = require('mongoose').Types.ObjectId;
 const constants = require('../lib/constants');
 const UserModel = require('../models/user');
 const ProductModel = require('../models/product');
-const {
-  sendProductRequestEmail,
-  sendProductApprovalEmail,
-} = require('../services/mail');
+
 
 const addNewProduct = async (req, res) => {
   try {
@@ -231,32 +228,6 @@ const orderRequest = async (req, res) => {
 
     const owner = await UserModel.findById(product.publisher);
 
-    if (
-      !constants.PHONE_NUMBER_REGEX.test(user.phoneNumber) ||
-      !user.phoneNumber
-    ) {
-      await sendProductRequestEmail(
-        owner.username,
-        owner.email,
-        product.title,
-        product._id,
-        user.username,
-        user.email,
-        user._id
-      );
-    } else {
-      await sendProductRequestEmail(
-        owner.username,
-        owner.email,
-        product.title,
-        product._id,
-        user.username,
-        user.email,
-        user._id,
-        user.phoneNumber
-      );
-    }
-
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -339,32 +310,6 @@ const approveRequest = async (req, res) => {
         requester.requested.remove(product._id);
         product.beneficiary = requester._id;
         product.isTransactionCompleted = true;
-
-        if (
-          !constants.PHONE_NUMBER_REGEX.test(owner.phoneNumber) ||
-          !owner.phoneNumber
-        ) {
-          await sendProductApprovalEmail(
-            requester.username,
-            requester.email,
-            product.title,
-            product._id,
-            owner.username,
-            owner.email,
-            owner._id
-          );
-        } else {
-          await sendProductApprovalEmail(
-            requester.username,
-            requester.email,
-            product.title,
-            product._id,
-            owner.username,
-            owner.email,
-            owner._id,
-            owner.phoneNumber
-          );
-        }
 
         requester.save();
         product.save();
