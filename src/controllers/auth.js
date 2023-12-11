@@ -5,6 +5,7 @@ const constants = require('../lib/constants');
 const { generateUniqeUsername } = require('../services/utils');
 
 const register = async (req, res) => {
+  const SECRET_KEY="DENEME"
   const errorsArray = [];
   const { firstName, lastName, email, phoneNumber, password0 } = req.body;
 
@@ -51,6 +52,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    const SECRET_KEY="DENEME"
     const { usernameOrEmail, password } = req.body;
     if (constants.EMAIL_REGEX.test(usernameOrEmail)) {
       const foundEmail = await UserModel.findOne({ email: usernameOrEmail });
@@ -67,7 +69,7 @@ const login = async (req, res) => {
       }
 
       const payload = { userId: foundEmail.id };
-      const token = jwt.sign(payload, process.env.SECRET_KEY, {
+      const token = jwt.sign(payload, SECRET_KEY, {
         expiresIn: constants.TOKEN_EXPIRATION_DURATION,
       });
       res.cookie('token', token, {
@@ -93,7 +95,7 @@ const login = async (req, res) => {
     }
 
     const payload = { userId: foundUsername.id };
-    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+    const token = jwt.sign(payload, SECRET_KEY, {
       expiresIn: constants.TOKEN_EXPIRATION_DURATION,
     });
     res.cookie('token', token, {
@@ -113,6 +115,7 @@ const logout = async (req, res) => {
 
 const saveUserToTokenAndCookie = (req, res) => {
   try {
+    const SECRET_KEY="DENEME"
     const { name, email, providerId, profilePicture } = req.user;
     const payload = {
       name,
@@ -121,7 +124,7 @@ const saveUserToTokenAndCookie = (req, res) => {
       avatar: profilePicture,
       userId: req.user.id,
     };
-    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+    const token = jwt.sign(payload, SECRET_KEY, {
       expiresIn: constants.TOKEN_EXPIRATION_DURATION,
     });
     res.cookie('token', token, {

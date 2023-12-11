@@ -17,12 +17,13 @@ const constants = require('./lib/constants');
 const { errorHandler, corsOptions } = require('./services/utils');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.use(cors());
+const SECRET_KEY="DENEME"
 
-app.use(cookieParser(process.env.SECRET_KEY));
-app.use(encryptCookieNodeMiddleware(process.env.SECRET_KEY));
+app.use(cookieParser(SECRET_KEY));
+app.use(encryptCookieNodeMiddleware(SECRET_KEY));
 
 app.use('/api', authenticationMiddleware);
 

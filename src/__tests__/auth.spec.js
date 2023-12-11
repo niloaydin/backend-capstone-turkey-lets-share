@@ -653,7 +653,7 @@ function parseJWTCookie(value) {
   if (typeof value !== 'string') {
     return undefined;
   }
-  const { SECRET_KEY } = process.env;
+  const SECRET_KEY = "DENEME";
 
   const { decryptAesGcm } = require('encrypt-cookie');
   const jwt = require('jsonwebtoken');

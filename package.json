@@ -31,7 +31,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.8.0",
-    "mongoose": "^6.4.5",
+    "mongoose": "^8.0.3",
     "monkeypatch": "^1.0.0",
     "node-cron": "^3.0.1",
     "nodemailer": "^6.7.7",

@@ -1,21 +1,21 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 
-const urlDev = process.env.DB_DEV_URL;
-const urlTest = process.env.DB_TEST_URL;
-const urlProd = process.env.DB_PROD_URL;
+const mongo_db_password = process.env.MONGO_DB_PASSWORD
 
-let url = "mongodb+srv://nilayaydn97:19971997@cluster0.weakapl.mongodb.net/";
-if (process.env.NODE_ENV === 'test') url = urlTest;
-if (process.env.NODE_ENV === 'production') url = urlProd;
+
+let url = `mongodb://niloaydin:nilayaydin@cloud-project.cluster-ciswf9m25zdg.eu-west-3.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false`;
+
+console.log('Connection URL:', url);
+console.log("AAA")
 
 const connectToMongo = () => {
-  mongoose.connect(url, { useNewUrlParser: true });
+  mongoose.connect(url);
 
   const db = mongoose.connection;
 
   db.once('open', () => {
-    console.log('Database connected to MongoDB Atlas');
+    console.log('Database connected to AWS Document DB');
   });
 
   db.on('error', (err) => {
