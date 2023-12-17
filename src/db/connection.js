@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const mongo_db_password = process.env.MONGO_DB_PASSWORD
 
 
-let url = `mongodb://niloaydin:nilayaydin@cloud-project.cluster-ciswf9m25zdg.eu-west-3.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false`;
+let url = "mongodb+srv://nilayaydn97:BRMIoBRpWPN15TCv@cluster0.nmhccjs.mongodb.net/";
 
 console.log('Connection URL:', url);
 console.log("AAA")
@@ -15,7 +15,7 @@ const connectToMongo = () => {
   const db = mongoose.connection;
 
   db.once('open', () => {
-    console.log('Database connected to AWS Document DB');
+    console.log('Database connected to mongodb');
   });
 
   db.on('error', (err) => {
